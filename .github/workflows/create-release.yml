@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
@@ -33,7 +33,7 @@ jobs:
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
@@ -96,40 +96,3 @@ jobs:
             LICENSE
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-  notify-community:
-    needs: [create-release]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Get version from tag
-        id: tag_name
-        run: |
-          echo ::set-output name=current_version::${GITHUB_REF#refs/tags/v}
-      - name: Post to the community Slack channel
-        uses: slackapi/slack-github-action@v1.23.0
-        with:
-          channel-id: 'C04KT9JNRHS'
-          payload: |
-            {
-              "text": "[Release] Kengine CDK v${{ steps.tag_name.outputs.current_version }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*[Release] Kengine CDK v${{ steps.tag_name.outputs.current_version }}*"
-                  }
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "<https://github.com/khulnasoft/cdk/releases/tag/v${{ steps.tag_name.outputs.current_version }}|https://github.com/khulnasoft/cdk/releases/tag/v${{ steps.tag_name.outputs.current_version }}>"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
