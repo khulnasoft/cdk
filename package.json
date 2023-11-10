@@ -1,0 +1,47 @@
+{
+  "name": "@khulnasoft/cdk",
+  "version": "0.0.46",
+  "description": "Define your observability as code using the AWS CDK",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && tsc --build",
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khulnasoft/cdk.git"
+  },
+  "keywords": [
+    "AWS",
+    "O11y",
+    "Observability",
+    "CDK",
+    "Queries",
+    "Alerts",
+    "Dashboards"
+  ],
+  "author": "KhulnaSoft DevSec",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/khulnasoft/cdk/issues"
+  },
+  "homepage": "https://github.com/khulnasoft/cdk#readme",
+  "peerDependencies": {
+    "aws-cdk-lib": "^2.0.0",
+    "constructs": "^10.0.6"
+  },
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.4",
+    "@types/node": "^18.16.1",
+    "aws-cdk-lib": "^2.0.0",
+    "ts-toolbelt": "^9.6.0",
+    "typescript": "^5.0.4",
+    "vitest": "^0.32.4"
+  },
+  "overrides": {
+    "tsup": {
+      "rollup": "3.20.4"
+    }
+  }
+}
